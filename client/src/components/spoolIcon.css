@@ -15,6 +15,10 @@
   height: 4em;
 }
 
+.spool-icon.no-margin {
+  margin: 0;
+}
+
 .spool-icon * {
   flex: 1 1 0px;
   border-radius: 2px;

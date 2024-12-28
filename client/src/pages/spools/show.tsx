@@ -139,7 +139,8 @@ export const SpoolShow: React.FC<IResourceComponentsProps> = () => {
       <Title level={5}>{t("spool.fields.id")}</Title>
       <NumberField value={record?.id ?? ""} />
       <Title level={5}>{t("spool.fields.filament")}</Title>
-      {colorObj && <SpoolIcon color={colorObj} />} <TextField value={record ? filamentURL(record?.filament) : ""} />
+      {colorObj && <SpoolIcon color={colorObj} size="large" no_margin />}
+      <TextField value={record ? filamentURL(record?.filament) : ""} />
       <Title level={5}>{t("spool.fields.price")}</Title>
       <NumberField
         value={record ? spoolPrice(record) : ""}
