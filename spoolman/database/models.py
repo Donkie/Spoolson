@@ -72,12 +72,27 @@ class Spool(Base):
     initial_weight: Mapped[Optional[float]] = mapped_column()
     spool_weight: Mapped[Optional[float]] = mapped_column()
     used_weight: Mapped[float] = mapped_column()
-    location: Mapped[Optional[str]] = mapped_column(String(64))
+    location_id: Mapped[Optional[int]] = mapped_column(ForeignKey("location.id"))
+    location: Mapped[Optional["Location"]] = relationship("Location", back_populates="spools")
     lot_nr: Mapped[Optional[str]] = mapped_column(String(64))
     comment: Mapped[Optional[str]] = mapped_column(String(1024))
     archived: Mapped[Optional[bool]] = mapped_column()
     extra: Mapped[list["SpoolField"]] = relationship(
         back_populates="spool",
+        cascade="save-update, merge, delete, delete-orphan",
+        lazy="joined",
+    )
+
+
+class Location(Base):
+    __tablename__ = "location"
+
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    registered: Mapped[datetime] = mapped_column()
+    name: Mapped[str] = mapped_column(String(64), unique=True, nullable=False)
+    spools: Mapped[list["Spool"]] = relationship("Spool", back_populates="location")
+    extra: Mapped[list["LocationField"]] = relationship(
+        back_populates="location",
         cascade="save-update, merge, delete, delete-orphan",
         lazy="joined",
     )
@@ -114,5 +129,14 @@ class SpoolField(Base):
 
     spool_id: Mapped[int] = mapped_column(ForeignKey("spool.id"), primary_key=True, index=True)
     spool: Mapped["Spool"] = relationship(back_populates="extra")
+    key: Mapped[str] = mapped_column(String(64), primary_key=True, index=True)
+    value: Mapped[str] = mapped_column(Text())
+
+
+class LocationField(Base):
+    __tablename__ = "location_field"
+
+    location_id: Mapped[int] = mapped_column(ForeignKey("location.id"), primary_key=True, index=True)
+    location: Mapped["Location"] = relationship(back_populates="extra")
     key: Mapped[str] = mapped_column(String(64), primary_key=True, index=True)
     value: Mapped[str] = mapped_column(Text())
