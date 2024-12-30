@@ -17,3 +17,15 @@ export function getCurrencySymbol(locale: string | undefined, currency: string) 
     .replace(/\d/g, "")
     .trim();
 }
+
+export function useCurrencyFormatter() {
+  const currency = useCurrency();
+  const roundPrices = JSON.parse(useGetSetting("round_prices").data?.value ?? "false");
+
+  return new Intl.NumberFormat(undefined, {
+    style: "currency",
+    currency: currency,
+    currencyDisplay: "narrowSymbol",
+    notation: roundPrices ? "compact" : "standard",
+  });
+}

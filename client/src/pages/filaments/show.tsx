@@ -10,7 +10,7 @@ import { NumberFieldUnit } from "../../components/numberField";
 import SpoolIcon from "../../components/spoolIcon";
 import { enrichText } from "../../utils/parsing";
 import { EntityType, useGetFields } from "../../utils/queryFields";
-import { useCurrency } from "../../utils/settings";
+import { useCurrencyFormatter } from "../../utils/settings";
 import { IFilament } from "./model";
 dayjs.extend(utc);
 
@@ -20,7 +20,7 @@ export const FilamentShow: React.FC<IResourceComponentsProps> = () => {
   const t = useTranslate();
   const navigate = useNavigate();
   const extraFields = useGetFields(EntityType.filament);
-  const currency = useCurrency();
+  const currencyFormatter = useCurrencyFormatter();
   const { queryResult } = useShow<IFilament>({
     liveMode: "auto",
   });
@@ -92,15 +92,7 @@ export const FilamentShow: React.FC<IResourceComponentsProps> = () => {
       <Title level={5}>{t("filament.fields.material")}</Title>
       <TextField value={record?.material} />
       <Title level={5}>{t("filament.fields.price")}</Title>
-      <NumberField
-        value={record?.price ?? ""}
-        options={{
-          style: "currency",
-          currency: currency,
-          currencyDisplay: "narrowSymbol",
-          notation: "compact",
-        }}
-      />
+      <TextField value={record?.price ? currencyFormatter.format(record.price) : ""} />
       <Title level={5}>{t("filament.fields.density")}</Title>
       <NumberFieldUnit
         value={record?.density ?? ""}

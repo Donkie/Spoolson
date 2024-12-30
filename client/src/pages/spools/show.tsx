@@ -10,7 +10,7 @@ import { NumberFieldUnit } from "../../components/numberField";
 import SpoolIcon from "../../components/spoolIcon";
 import { enrichText } from "../../utils/parsing";
 import { EntityType, useGetFields } from "../../utils/queryFields";
-import { useCurrency } from "../../utils/settings";
+import { useCurrencyFormatter } from "../../utils/settings";
 import { IFilament } from "../filaments/model";
 import { setSpoolArchived } from "./functions";
 import { ISpool } from "./model";
@@ -23,7 +23,7 @@ const { confirm } = Modal;
 export const SpoolShow: React.FC<IResourceComponentsProps> = () => {
   const t = useTranslate();
   const extraFields = useGetFields(EntityType.spool);
-  const currency = useCurrency();
+  const currencyFormatter = useCurrencyFormatter();
   const invalidate = useInvalidate();
 
   const { queryResult } = useShow<ISpool>({
@@ -33,13 +33,12 @@ export const SpoolShow: React.FC<IResourceComponentsProps> = () => {
 
   const record = data?.data;
 
-  const spoolPrice = (item: ISpool) => {
-    let spoolPrice = "";
-    if (item.price === undefined) {
-      spoolPrice = `${item.filament.price}`;
-      return spoolPrice;
+  const spoolPrice = (item?: ISpool) => {
+    const price = item?.price ?? item?.filament.price;
+    if (price === undefined) {
+      return "";
     }
-    return item.price;
+    return currencyFormatter.format(price);
   };
 
   // Function for opening an ant design modal that asks for confirmation for archiving a spool
@@ -141,15 +140,7 @@ export const SpoolShow: React.FC<IResourceComponentsProps> = () => {
       <Title level={5}>{t("spool.fields.filament")}</Title>
       {colorObj && <SpoolIcon color={colorObj} />} <TextField value={record ? filamentURL(record?.filament) : ""} />
       <Title level={5}>{t("spool.fields.price")}</Title>
-      <NumberField
-        value={record ? spoolPrice(record) : ""}
-        options={{
-          style: "currency",
-          currency: currency,
-          currencyDisplay: "narrowSymbol",
-          notation: "compact",
-        }}
-      />
+      <TextField value={spoolPrice(record)} />
       <Title level={5}>{t("spool.fields.registered")}</Title>
       <DateField
         value={dayjs.utc(record?.registered).local()}

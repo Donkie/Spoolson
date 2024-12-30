@@ -62,6 +62,7 @@ def parse_setting(key: str) -> SettingDefinition:
 
 
 register_setting("currency", SettingType.STRING, json.dumps("EUR"))
+register_setting("round_prices", SettingType.BOOLEAN, json.dumps(obj=False))
 register_setting("print_presets", SettingType.ARRAY, json.dumps([]))
 
 register_setting("extra_fields_vendor", SettingType.ARRAY, json.dumps([]))

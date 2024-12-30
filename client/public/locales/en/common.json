@@ -316,6 +316,10 @@
             "base_url": {
                 "label": "Base URL",
                 "tooltip": "The base URL to use when generating features such as QR codes."
+            },
+            "round_prices": {
+                "label": "Round prices",
+                "tooltip": "Round prices to the nearest whole number."
             }
         },
         "extra_fields": {

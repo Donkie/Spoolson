@@ -36,7 +36,7 @@ import {
 import { removeUndefined } from "../../utils/filtering";
 import { EntityType, useGetFields } from "../../utils/queryFields";
 import { TableState, useInitialTableState, useSavedState, useStoreInitialState } from "../../utils/saveload";
-import { useCurrency } from "../../utils/settings";
+import { useCurrencyFormatter } from "../../utils/settings";
 import { setSpoolArchived, useSpoolAdjustModal } from "./functions";
 import { ISpool } from "./model";
 
@@ -102,7 +102,7 @@ export const SpoolList: React.FC<IResourceComponentsProps> = () => {
   const invalidate = useInvalidate();
   const navigate = useNavigate();
   const extraFields = useGetFields(EntityType.spool);
-  const currency = useCurrency();
+  const currencyFormatter = useCurrencyFormatter();
   const { openSpoolAdjustModal, spoolAdjustModal } = useSpoolAdjustModal();
 
   const allColumnsWithExtraFields = [...allColumns, ...(extraFields.data?.map((field) => "extra." + field.key) ?? [])];
@@ -381,12 +381,10 @@ export const SpoolList: React.FC<IResourceComponentsProps> = () => {
             align: "right",
             width: 80,
             render: (_, obj: ISpoolCollapsed) => {
-              return obj.price?.toLocaleString(undefined, {
-                style: "currency",
-                currencyDisplay: "narrowSymbol",
-                currency: currency,
-                notation: "compact",
-              });
+              if (obj.price === undefined) {
+                return "";
+              }
+              return currencyFormatter.format(obj.price);
             },
           }),
           NumberColumn({
