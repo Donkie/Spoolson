@@ -11,6 +11,7 @@ from typing import Optional
 import hishel
 from pydantic import BaseModel, Field, RootModel
 from scheduler.asyncio.scheduler import Scheduler
+from urllib.parse import urljoin
 
 from spoolman import filecache
 from spoolman.env import get_cache_dir
@@ -121,7 +122,7 @@ class ExternalMaterialsFile(RootModel):
 
 def get_external_db_url() -> str:
     """Get the external database URL from environment variables. Defaults to DEFAULT_EXTERNAL_DB_URL."""
-    return os.getenv("EXTERNAL_DB_URL", DEFAULT_EXTERNAL_DB_URL).strip("/") + "/"
+    return os.getenv("EXTERNAL_DB_URL", DEFAULT_EXTERNAL_DB_URL)
 
 
 def get_external_db_sync_interval() -> int:
@@ -170,8 +171,8 @@ async def _sync() -> None:
 
     url = get_external_db_url()
 
-    filaments = _parse_filaments_from_bytes(await _download_file(url + "filaments.json"))
-    materials = _parse_materials_from_bytes(await _download_file(url + "materials.json"))
+    filaments = _parse_filaments_from_bytes(await _download_file(urljoin(url, "filaments.json")))
+    materials = _parse_materials_from_bytes(await _download_file(urljoin(url, "materials.json")))
 
     _write_to_local_cache("filaments.json", filaments.json().encode())
     _write_to_local_cache("materials.json", materials.json().encode())
