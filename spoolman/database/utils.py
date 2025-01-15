@@ -126,6 +126,6 @@ def add_where_clause_int_in(
     value: Optional[Sequence[T]],
 ) -> Select:
     """Add a where clause to a select statement for a field."""
-    if value is not None and len(value) > 0:
+    if value is not None:
         stmt = stmt.where(field.in_(value))
     return stmt
