@@ -2,6 +2,7 @@ import { useTranslate } from "@refinedev/core";
 import { Form, Modal, Select } from "antd";
 import { Trans } from "react-i18next";
 import { formatFilamentLabel } from "../pages/spools/functions";
+import { useCurrency } from "../utils/settings";
 import { searchMatches } from "../utils/filtering";
 import { ExternalFilament, useGetExternalDBFilaments } from "../utils/queryExternalDB";
 
@@ -13,7 +14,9 @@ export function FilamentImportModal(props: {
   const [form] = Form.useForm();
   const t = useTranslate();
 
-  const externalFilaments = useGetExternalDBFilaments();
+  const currency = useCurrency();
+  
+  const externalFilaments = useGetExternalDBFilaments(currency);
   const filamentOptions =
     externalFilaments.data?.map((item) => {
       return {

@@ -27,6 +27,8 @@ export interface ExternalFilament {
   manufacturer: string;
   name: string;
   material: string;
+  prices: { [key: string]: number}
+  price?: number,
   density: number;
   weight: number;
   spool_weight?: number;
@@ -50,7 +52,7 @@ export interface ExternalMaterial {
   bed_temp: number | null;
 }
 
-export function useGetExternalDBFilaments() {
+export function useGetExternalDBFilaments(currency: string) {
   return useQuery<ExternalFilament[]>({
     queryKey: ["external", "filaments"],
     staleTime: 60,
@@ -58,6 +60,10 @@ export function useGetExternalDBFilaments() {
       const response = await fetch(`${getAPIURL()}/external/filament`);
       return response.json();
     },
+    select: data => data.map(fil => { // Set price to current currency
+      fil.price = fil.prices?.[currency]; 
+      return (fil as ExternalFilament); 
+    })
   });
 }
 

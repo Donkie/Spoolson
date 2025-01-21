@@ -76,7 +76,7 @@ export const SpoolEdit: React.FC<IResourceComponentsProps> = () => {
     internalSelectOptions,
     externalSelectOptions,
     allExternalFilaments,
-  } = useGetFilamentSelectOptions();
+  } = useGetFilamentSelectOptions(currency);
 
   const selectedFilamentID = Form.useWatch("filament_id", form);
   const selectedFilament = useMemo(() => {

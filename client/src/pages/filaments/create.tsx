@@ -79,6 +79,7 @@ export const FilamentCreate: React.FC<IResourceComponentsProps & CreateOrClonePr
       name: filament.name,
       vendor_id: vendor.id,
       material: filament.material,
+      price: filament.price,
       density: filament.density,
       diameter: filament.diameter,
       weight: filament.weight,

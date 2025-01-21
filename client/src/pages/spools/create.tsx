@@ -78,7 +78,7 @@ export const SpoolCreate: React.FC<IResourceComponentsProps & CreateOrCloneProps
     internalSelectOptions,
     externalSelectOptions,
     allExternalFilaments,
-  } = useGetFilamentSelectOptions();
+  } = useGetFilamentSelectOptions(currency);
 
   const selectedFilamentID = Form.useWatch("filament_id", form);
   const selectedFilament = useMemo(() => {
@@ -147,8 +147,12 @@ export const SpoolCreate: React.FC<IResourceComponentsProps & CreateOrCloneProps
   const [usedWeight, setUsedWeight] = useState(0);
 
   useEffect(() => {
+    const newFilamentPrice = selectedFilament?.price || 0;
     const newFilamentWeight = selectedFilament?.weight || 0;
     const newSpoolWeight = selectedFilament?.spool_weight || 0;
+    if (newFilamentPrice > 0) {
+      form.setFieldValue("price", newFilamentPrice);
+    }
     if (newFilamentWeight > 0) {
       form.setFieldValue("initial_weight", newFilamentWeight);
     }

@@ -24,6 +24,7 @@ export async function createFilamentFromExternal(externalFilament: ExternalFilam
     name: externalFilament.name,
     material: externalFilament.material,
     vendor_id: vendor.id,
+    price: externalFilament.price,
     density: externalFilament.density,
     diameter: externalFilament.diameter,
     weight: externalFilament.weight,
