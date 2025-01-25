@@ -37,9 +37,11 @@ logging.getLogger("uvicorn").addHandler(console_handler)
 logging.getLogger("uvicorn.error").setLevel(log_level)
 logging.getLogger("uvicorn.error").addHandler(console_handler)
 
-logging.getLogger("uvicorn.access").setLevel(log_level)
-logging.getLogger("uvicorn.access").removeHandler(logging.getLogger("uvicorn.access").handlers[0])
-logging.getLogger("uvicorn.access").addHandler(console_handler)
+access_handlers = logging.getLogger("uvicorn.access").handlers
+if access_handlers:
+    logging.getLogger("uvicorn.access").setLevel(log_level)
+    logging.getLogger("uvicorn.access").removeHandler(access_handlers[0])
+    logging.getLogger("uvicorn.access").addHandler(console_handler)
 
 # Get logger instance for this module
 logger = logging.getLogger(__name__)
