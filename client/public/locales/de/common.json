@@ -124,7 +124,7 @@
                 "withIcon": "Mit Icon"
             },
             "template": "Beschriftung Vorlagen",
-            "templateHelp": "Benutze {} um Texte der Spule dynamisch zu übernehmen. Zum Beispiel wird {id} durch die ID der Spule ersetzt, {filament.material} wird durch das Material der Spule ersetzt. Texte zwischen zwei Sternen ** werden fett dargestellt. Drücke auf den Knopf um alle verfügbaren Variablen zu sehen.",
+            "templateHelp": "Benutze {} um Texte der Spule dynamisch zu übernehmen. Zum Beispiel wird {id} durch die ID der Spule ersetzt, {filament.material} wird durch das Material der Spule ersetzt. Wenn ein Wert fehlt, wird er mit \"?\" ersetzt. Ein zweiter Satz von {} kann genutzt werden, um dieses zu umgehen. Zusätzlich wird jeglicher Text zwischen einem Satz von {} entfernt, wenn der Wert fehlt. Beispielsweise zeigt {Charge: {lot_nr}} nur das Label an, wenn eine Spule eine Charge definiert hat. Texte zwischen zwei Sternen ** werden fett dargestellt. Drücke auf den Knopf um alle verfügbaren Variablen zu sehen.",
             "showQRCode": "Drucke QR Code",
             "useHTTPUrl": {
                 "label": "QR Code Link",
@@ -219,6 +219,9 @@
             },
             "adjust_filament_value": "Verbrauchte Menge",
             "measurement_type_label": "Messungstyp"
+        },
+        "formats": {
+            "last_used": "Zuletzt genutzt {{date}}"
         }
     },
     "filament": {
@@ -330,6 +333,9 @@
         },
         "help": {
             "list": "Hilfe | Spoolman"
+        },
+        "locations": {
+            "list": "Orte | Spoolman"
         }
     },
     "help": {
@@ -389,5 +395,11 @@
             "non_unique_key_error": "Der Schlüssel muss einzigartig sein."
         },
         "settings": "Einstellungen"
+    },
+    "locations": {
+        "no_location": "Kein Ort",
+        "no_locations_help": "Diese Seite lässt Sie Ihre Spulen zu Orten zuweisen, fügen Sie ein paar Spulen hinzu um loszulegen!",
+        "locations": "Orte",
+        "new_location": "Neuer Ort"
     }
 }
