@@ -74,7 +74,7 @@
             "deleteSettingsConfirm": "Êtes-vous sûr de vouloir supprimer ce préréglage ?",
             "settingsName": "Nom du préréglage",
             "saveAsImage": "Enregistrer comme image",
-            "itemCopies": "Nombre d'article",
+            "itemCopies": "Nombre d'articles",
             "duplicateSettings": "Dupliquer",
             "saveSetting": "Enregistrer les préréglages"
         },
@@ -400,6 +400,7 @@
     "locations": {
         "locations": "Emplacements",
         "new_location": "Créer un emplacement",
-        "no_location": "Pas de localisation"
+        "no_location": "Pas de localisation",
+        "no_locations_help": "Cette page vous permet d'organiser vos bobines par lieu, ajoutez une bobine pour commencer !"
     }
 }
