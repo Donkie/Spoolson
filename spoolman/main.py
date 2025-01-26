@@ -101,12 +101,16 @@ window.SPOOLMAN_BASE_PATH = "{base_path}";
 app.mount(base_path, app=SinglePageApplication(directory="client/dist", base_path=env.get_base_path()))
 
 # Allow all origins if in debug mode
-if env.is_debug_mode():
-    logger.warning("Running in debug mode, allowing all origins.")
+if env.is_debug_mode() or env.is_cors_defined():
+    if(env.is_cors_defined()):
+        origins = env.get_cors_origin()
+    else:
+        origins = ["*"]
+        logger.warning("Running in debug mode, allowing all origins.")
 
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],

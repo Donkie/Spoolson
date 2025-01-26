@@ -210,6 +210,35 @@ def is_debug_mode() -> bool:
         return True
     raise ValueError(f"Failed to parse SPOOLMAN_DEBUG_MODE variable: Unknown debug mode '{debug_mode}'.")
 
+def is_cors_defined() -> bool:
+    """Get whether CORS is enabled from environment variables.
+
+    Returns False if no environment variable was set for CORS.
+    Returns True otherwise
+
+    Returns:
+        bool: Whether CORS is enabled.
+
+    """
+    cors = os.getenv("SPOOLMAN_CORS_ORIGIN", "FALSE").upper()
+    if cors in {"FALSE", "0"}:
+        return False
+    else:
+        return True
+
+def get_cors_origin() -> Optional[list[str]]:
+    """Get the CORS origin from environment variables.
+
+    Returns None if no environment variable was set for the origin.
+
+    Returns:
+        Optional[str]: The origin.
+
+    """
+    cors = os.getenv("SPOOLMAN_CORS_ORIGIN")
+    if cors is None:
+        return None
+    return cors.split(",")
 
 def is_automatic_backup_enabled() -> bool:
     """Get whether automatic backup is enabled from environment variables.
