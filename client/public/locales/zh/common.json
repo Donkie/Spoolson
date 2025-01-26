@@ -218,6 +218,9 @@
             "measurement_type_label": "测量类型",
             "adjust_filament_help": "在这里你可以直接增加或减少线盘中的耗材。正数是减少耗材数量，负数是增加耗材数量。",
             "adjust_filament_value": "消耗量"
+        },
+        "formats": {
+            "last_used": "上次使用 {{date}}"
         }
     },
     "filament": {
@@ -329,6 +332,9 @@
         },
         "help": {
             "list": "帮助 | Spoolman"
+        },
+        "locations": {
+            "list": "位置 | Spoolman"
         }
     },
     "kofi": "在Ko-fi上给我打赏一点小费",
@@ -388,5 +394,11 @@
                 "tooltip": "生成功能（例如二维码）时使用的基础 URL。"
             }
         }
+    },
+    "locations": {
+        "no_locations_help": "此页面允许您在不同位置管理料盘，添加一些料盘即可开始！",
+        "locations": "位置",
+        "new_location": "新位置",
+        "no_location": "没有位置"
     }
 }
